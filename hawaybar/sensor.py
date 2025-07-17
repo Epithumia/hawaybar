@@ -90,7 +90,14 @@ class Module:
 
     def print(self):
         self.update()
-        output = f'{{"text": "{"".join([sensor.print() + " " if sensor.position == "waybar" else "" for sensor in self.sensors]).strip()}", "tooltip": "{"".join([sensor.print() + " " if sensor.position == "tooltip" else "" for sensor in self.sensors]).strip()}", "class": ""}}\\0'
+        if any([sensor.position == "waybar" for sensor in self.sensors]) and any(
+            [sensor.position == "tooltip" for sensor in self.sensors]
+        ):
+            output = f'{{"text": "{"".join([sensor.print() + " " if sensor.position == "waybar" else "" for sensor in self.sensors]).strip()}", "tooltip": "{"".join([sensor.print() + " " if sensor.position == "tooltip" else "" for sensor in self.sensors]).strip()}", "class": ""}}\\0'
+        elif any([sensor.position == "waybar" for sensor in self.sensors]):
+            output = f'{{"text": "{"".join([sensor.print() + " " if sensor.position == "waybar" else "" for sensor in self.sensors]).strip()}", "class": ""}}\\0'
+        else:
+            output = f'{{"tooltip": "{"".join([sensor.print() + " " if sensor.position == "tooltip" else "" for sensor in self.sensors]).strip()}", "class": ""}}\\0'
         return output
 
     def debug(self):
