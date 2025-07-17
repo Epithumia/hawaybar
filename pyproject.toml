@@ -1,0 +1,25 @@
+[build-system]
+requires = ["setuptools", "setuptools-scm"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "hawaybar"
+authors = [
+    {name = "Rafael Lopez", email = "rafael.lopez@airelle.info"},
+]
+description = "Home assistant module for Waybar."
+readme = "README.md"
+requires-python = ">=3.10"
+keywords = ["home assistant", "waybar"]
+license = {text = "MIT"}
+classifiers = [
+    "Programming Language :: Python :: 3",
+]
+dependencies = ["requests", "typer", "click<8.2.0"]
+dynamic = ["version"]
+
+[tool.setuptools.dynamic]
+version = {attr = "hawaybar.VERSION"}
+
+[project.scripts]
+hawaybar = "hawaybar.cli:cli"
