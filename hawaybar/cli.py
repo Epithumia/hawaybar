@@ -21,13 +21,14 @@ input_file_argument = Annotated[
     ),
 ]
 
+
 @cli.command("get", no_args_is_help=True)
 def cli_get(file: input_file_argument) -> None:
     with open(file) as f:
         config = json.loads(f.read())
         module = Module(config)
-        print(module.print())
-        # Regarder device class pour voir comment traiter
+        print(module.print(), end="", flush=True)
+
 
 @cli.command("debug", no_args_is_help=True)
 def cli_debug(file: input_file_argument) -> None:
@@ -35,6 +36,7 @@ def cli_debug(file: input_file_argument) -> None:
         config = json.loads(f.read())
         module = Module(config)
         print(module.debug())
+
 
 if __name__ == "__main__":
     cli()  # pragma: no cover
